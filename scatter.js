@@ -5,10 +5,7 @@ function drawScatter(x, y, location, width, height) {
     height = height - margin.top - margin.bottom;
 
 // pre-cursors
-    var sizeForCircle = function(d) {
-        // TODO: modify the size
-        return 5;
-    };
+
 
     var color = d3.scale.ordinal()
         .domain(['ATL', 'BOS', 'BRK', 'CHI', 'CLE', 'DAL', 'DEN', 'GSW', 'HOU', 'IND', 'LAC', 'LAL', 'MEM', 'MIA', 'OKC',
@@ -17,20 +14,20 @@ function drawScatter(x, y, location, width, height) {
             '#FFC633', '#ED174C', '#552582', '#BBD1E4', '#98002E', '#F05133', '#007DC5', '#E56020', '#F0163A',
             '#B6BFBF', '#CE1141']);
 
-// setup x
+    // setup x
     var xValue = function(d) { return d[x];}, // data -> value
         xScale = d3.scale.linear().range([0, width]), // value -> display
         xMap = function(d) { return xScale(xValue(d));}, // data -> display
         xAxis = d3.svg.axis().scale(xScale).orient("bottom");
 
-// setup y
+    // setup y
     var yValue = function(d) { return d[y];}, // data -> value
         yScale = d3.scale.linear().range([0, height]), // value -> display
         yMap = function(d) { return yScale(yValue(d));}, // data -> display
         yAxis = d3.svg.axis().scale(yScale).orient("left");
 
 
-// add the graph canvas to the body of the webpage
+    // add the graph canvas to the body of the webpage
     var scatter = d3.select(location).append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -38,12 +35,12 @@ function drawScatter(x, y, location, width, height) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-// add the tooltip area to the webpage
+    // add the tooltip area to the webpage
     var tooltip = d3.select("body").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
 
-// load data
+    // load data
     d3.csv("Results.csv", function(error, data) {
         // change string (from CSV) into number format
         data.forEach(function(d) {
@@ -81,7 +78,7 @@ function drawScatter(x, y, location, width, height) {
             .append("text")
             .attr("class", "label")
             .attr("transform", "rotate(-90)")
-            .attr("y", 6)
+            .attr("y", 6) //how far the text comes out
             .attr("dy", ".71em")
             .attr("fill", "black")
             .style("text-anchor", "end")
@@ -92,7 +89,7 @@ function drawScatter(x, y, location, width, height) {
             .data(data)
             .enter().append("circle")
             .attr("class", "dot")
-            .attr("r", sizeForCircle)
+            .attr("r", 5)
             .attr("cx", xMap)
             .attr("cy", yMap)
             .style("fill", function(d) { return color(d["Team"]); });
