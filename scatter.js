@@ -1,6 +1,6 @@
 function drawScatter(x, y, location, width, height) {
 
-    var margin = {top: 50, right: 0, bottom: 30, left: 0};
+    var margin = {top: 10, right: 0, bottom: 30, left: 0};
     width = width - margin.left - margin.right;
     height = height - margin.top - margin.bottom;
 
@@ -8,8 +8,8 @@ function drawScatter(x, y, location, width, height) {
 
 
     var color = d3.scale.ordinal()
-        .domain(['ATL', 'BOS', 'BRK', 'CHI', 'CLE', 'DAL', 'DEN', 'GSW', 'HOU', 'IND', 'LAC', 'LAL', 'MEM', 'MIA', 'OKC',
-            'ORL', 'PHO', 'POR', 'SAS', 'TOR'])
+        .domain(['ATL', 'BOS', 'BRK', 'CHI', 'CLE', 'DAL', 'DEN', 'GSW', 'HOU', 'IND', 'LAC', 'LAL', 'MEM', 'MIA',
+            'OKC', 'ORL', 'PHO', 'POR', 'SAS', 'TOR'])
         .range(['#E03A3E', '#008348', '#000000', '#CE1141', '#860038', '#007DC5', '#4FA8FF', '#006BB6', '#CE1141',
             '#FFC633', '#ED174C', '#552582', '#BBD1E4', '#98002E', '#F05133', '#007DC5', '#E56020', '#F0163A',
             '#B6BFBF', '#CE1141']);
@@ -147,7 +147,7 @@ function drawScatter(x, y, location, width, height) {
 
 }
 
-drawScatter("Assists", "Turnover Percentage", ".scatter-plot", 600, 600);
+//drawScatter("Assists", "Turnover Percentage", ".scatter-plot", 600, 600);
 
 //Playoff Rank Scatters
 
