@@ -15,7 +15,7 @@ var xValue = function(d) { return d.Assists;}, // data -> value
     xAxis = d3.svg.axis().scale(xScale).orient("bottom");
 
 // setup y
-var yValue = function(d) { return d.EFG;}, // data -> value
+var yValue = function(d) { return d["Turnover Percentage"];}, // data -> value
     yScale = d3.scale.linear().range([height, 0]), // value -> display
     yMap = function(d) { return yScale(yValue(d));}, // data -> display
     yAxis = d3.svg.axis().scale(yScale).orient("left");
@@ -31,14 +31,6 @@ var scatter = d3.select(".scatter-plot").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var bar = d3.select(".barchart").append("svg")
-    .attr("width", width + 250 + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom);
-
-var nutrition = d3.select(".nutrition-label").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom);
-
 
 // add the tooltip area to the webpage
 var tooltip = d3.select("body").append("div")
@@ -47,11 +39,10 @@ var tooltip = d3.select("body").append("div")
 
 // load data
 d3.csv("Results.csv", function(error, data) {
-
     // change string (from CSV) into number format
     data.forEach(function(d) {
         d.Assists = +d.Assists;
-        d.EFG = +d.EFG;
+        d["Turnover Percentage"] = +d["Turnover Percentage"];
     });
 
     //console.log(data);
@@ -66,27 +57,27 @@ d3.csv("Results.csv", function(error, data) {
     scatter.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
-        .attr("fill", "white")
+        .attr("fill", "black")
         .call(xAxis)
         .append("text")
         .attr("class", "label")
         .attr("x", width)
         .attr("y", -6)
-        .attr("fill", "white")
+        .attr("fill", "black")
         .style("text-anchor", "end")
         .text("Assists");
 
     // y-axis
     scatter.append("g")
         .attr("class", "y axis")
-        .attr("fill", "white")
+        .attr("fill", "black")
         .call(yAxis)
         .append("text")
         .attr("class", "label")
         .attr("transform", "rotate(-90)")
         .attr("y", 6)
         .attr("dy", ".71em")
-        .attr("fill", "white")
+        .attr("fill", "black")
         .style("text-anchor", "end")
         .text("EFG");
 
@@ -99,7 +90,7 @@ d3.csv("Results.csv", function(error, data) {
         .attr("cx", xMap)
         .attr("cy", yMap)
         .style("fill", function(d) { return color(cValue(d));})
-        .on("mouseover", function(d) {
+        /*.on("mouseover", function(d) {
 
             // TODO: show the tool tip
             tooltip.style("opacity", 1);
@@ -140,50 +131,13 @@ d3.csv("Results.csv", function(error, data) {
                 .attr("fill", function(e) {
 
                     if (d["EFG"] < e["Average"]) {
-                        return "white";
+                        return "black";
                     } else {
                         return color(cValue(e));;
                     }
 
                 });
 
-        });
+        });*/
 
-    // draw legend
-    var legend = nutrition.selectAll(".legend")
-        .data(color.domain())
-        .enter().append("g")
-        .attr("class", "legend")
-        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-    // draw legend colored rectangles
-    legend.append("rect")
-        .attr("x", 20)
-        .attr("y", 0)
-        .attr("width", 18)
-        .attr("height", 18)
-        .style("fill", color);
-
-    // draw legend text
-    legend.append("text")
-        .attr("x", 45)
-        .attr("y", 9)
-        .attr("dy", ".35em")
-        .attr("fill", "white")
-        .style("text-anchor", "begin")
-        .text(function(d) { return d;});
-
-    var xScaleBar = d3.scale.linear().range([0, width + 250]);
-    var yScaleBar = d3.scale.ordinal().rangeRoundBands([0, 300 - 30], 0.3);
-
-    var yAxisBar = d3.svg.axis().scale(yScaleBar).orient('left');
-    var xAxisBar = d3.svg.axis().scale(xScaleBar).orient('bottom');
-
-    xScaleBar.domain([0, d3.max(data, function(d){
-        return d["EFG"]
-    })]);
-
-    yScaleBar.domain(data.map(function(d) {
-        return d["Manufacturer"];
-    }));
 });

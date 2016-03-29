@@ -1,6 +1,6 @@
 var margin = {top: 30, right: 10, bottom: 10, left: 10},
     width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 350 - margin.top - margin.bottom;
 
 var x = d3.scale.ordinal().rangePoints([0, width], 1),
     y = {},
@@ -14,7 +14,7 @@ var line = d3.svg.line(),
 console.log(d3.select(".parallel-coordinate"));
 
 var svg = d3.select(".parallel-coordinate").append("svg")
-    .attr("width", width + margin.left + margin.right)
+    .attr("width", width     + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
