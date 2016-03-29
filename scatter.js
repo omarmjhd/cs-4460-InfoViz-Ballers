@@ -166,12 +166,12 @@ drawScatter("Turnover Percentage",  "EFG", ".TO-EFG", 250, 250);
 
 //AST Scatters
 
-drawScatter("Playoff Rank",         "AST", ".PR-AST", 250, 250);
-drawScatter("EFG",                  "AST", ".EFG-AST", 250, 250);
-drawScatter("Turnover Percentage",  "AST", ".TO-AST", 250, 250);
+drawScatter("Playoff Rank",         "Assists", ".PR-AST", 250, 250);
+drawScatter("EFG",                  "Assists", ".EFG-AST", 250, 250);
+drawScatter("Turnover Percentage",  "Assists", ".TO-AST", 250, 250);
 
 //TO ScattersTO
 
-drawScatter("Playoff Rank",         "TO", ".PR-TO", 250, 250);
-drawScatter("EFG",                  "TO", ".EFG-TO", 250, 250);
-drawScatter("Assists",              "TO", ".AST-TO", 250, 250);
+drawScatter("Playoff Rank",         "Turnover Percentage", ".PR-TO", 250, 250);
+drawScatter("EFG",                  "Turnover Percentage", ".EFG-TO", 250, 250);
+drawScatter("Assists",              "Turnover Percentage", ".AST-TO", 250, 250);
