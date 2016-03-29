@@ -1,8 +1,8 @@
-function drawScatter(x, y, location) {
+function drawScatter(x, y, location, width, height) {
 
     var margin = {top: 50, right: 0, bottom: 30, left: 0};
-    var width = 400 - margin.left - margin.right;
-    var height = 300 - margin.top - margin.bottom;
+    width = width - margin.left - margin.right;
+    height = height - margin.top - margin.bottom;
 
 // pre-cursors
     var sizeForCircle = function(d) {
@@ -25,7 +25,7 @@ function drawScatter(x, y, location) {
 
 // setup y
     var yValue = function(d) { return d[y];}, // data -> value
-        yScale = d3.scale.linear().range([height, 0]), // value -> display
+        yScale = d3.scale.linear().range([0, height]), // value -> display
         yMap = function(d) { return yScale(yValue(d));}, // data -> display
         yAxis = d3.svg.axis().scale(yScale).orient("left");
 
@@ -150,4 +150,28 @@ function drawScatter(x, y, location) {
 
 }
 
-drawScatter("Assists", "Turnover Percentage", ".scatter-plot");
+drawScatter("Assists", "Turnover Percentage", ".scatter-plot", 600, 600);
+
+//Playoff Rank Scatters
+
+drawScatter("EFG",                  "Playoff Rank", ".EFG-PR", 250, 250);
+drawScatter("Assists",              "Playoff Rank", ".AST-PR", 250, 250);
+drawScatter("Turnover Percentage",  "Playoff Rank", ".TO-PR", 250, 250);
+
+//EFG Scatters
+
+drawScatter("Playoff Rank",         "EFG", ".PR-EFG", 250, 250);
+drawScatter("Assists",              "EFG", ".AST-EFG", 250, 250);
+drawScatter("Turnover Percentage",  "EFG", ".TO-EFG", 250, 250);
+
+//AST Scatters
+
+drawScatter("Playoff Rank",         "AST", ".PR-AST", 250, 250);
+drawScatter("EFG",                  "AST", ".EFG-AST", 250, 250);
+drawScatter("Turnover Percentage",  "AST", ".TO-AST", 250, 250);
+
+//TO ScattersTO
+
+drawScatter("Playoff Rank",         "TO", ".PR-TO", 250, 250);
+drawScatter("EFG",                  "TO", ".EFG-TO", 250, 250);
+drawScatter("Assists",              "TO", ".AST-TO", 250, 250);
