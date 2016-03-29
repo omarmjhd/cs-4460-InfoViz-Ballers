@@ -8,6 +8,13 @@ var sizeForCircle = function(d) {
     return 5;
 };
 
+var color = d3.scale.ordinal()
+    .domain(['ATL', 'BOS', 'BRK', 'CHI', 'CLE', 'DAL', 'DEN', 'GSW', 'HOU', 'IND', 'LAC', 'LAL', 'MEM', 'MIA', 'OKC',
+        'ORL', 'PHO', 'POR', 'SAS', 'TOR'])
+    .range(['#E03A3E', '#008348', '#000000', '#CE1141', '#860038', '#007DC5', '#4FA8FF', '#006BB6', '#CE1141',
+        '#FFC633', '#ED174C', '#552582', '#BBD1E4', '#98002E', '#F05133', '#007DC5', '#E56020', '#F0163A',
+        '#B6BFBF', '#CE1141']);
+
 // setup x
 var xValue = function(d) { return d.Assists;}, // data -> value
     xScale = d3.scale.linear().range([0, width]), // value -> display
@@ -20,9 +27,6 @@ var yValue = function(d) { return d["Turnover Percentage"];}, // data -> value
     yMap = function(d) { return yScale(yValue(d));}, // data -> display
     yAxis = d3.svg.axis().scale(yScale).orient("left");
 
-// setup fill color
-var cValue = function(d) { return d.Manufacturer;},
-    color = d3.scale.category10();
 
 // add the graph canvas to the body of the webpage
 var scatter = d3.select(".scatter-plot").append("svg")
@@ -89,7 +93,7 @@ d3.csv("Results.csv", function(error, data) {
         .attr("r", sizeForCircle)
         .attr("cx", xMap)
         .attr("cy", yMap)
-        .style("fill", function(d) { return color(cValue(d));})
+        .style("fill", function(d) { return color(d["Team"]); });
         /*.on("mouseover", function(d) {
 
             // TODO: show the tool tip

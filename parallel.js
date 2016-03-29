@@ -6,6 +6,13 @@ var x = d3.scale.ordinal().rangePoints([0, width], 1),
     y = {},
     dragging = {};
 
+var color = d3.scale.ordinal()
+    .domain(['ATL', 'BOS', 'BRK', 'CHI', 'CLE', 'DAL', 'DEN', 'GSW', 'HOU', 'IND', 'LAC', 'LAL', 'MEM', 'MIA', 'OKC',
+        'ORL', 'PHO', 'POR', 'SAS', 'TOR'])
+    .range(['#E03A3E', '#008348', '#000000', '#CE1141', '#860038', '#007DC5', '#4FA8FF', '#006BB6', '#CE1141',
+        '#FFC633', '#ED174C', '#552582', '#BBD1E4', '#98002E', '#F05133', '#007DC5', '#E56020', '#F0163A',
+        '#B6BFBF', '#CE1141']);
+
 var line = d3.svg.line(),
     axis = d3.svg.axis().orient("left"),
     background,
@@ -46,7 +53,8 @@ d3.csv("Results.csv", function(error, results) {
         .selectAll("path")
         .data(results)
         .enter().append("path")
-        .attr("d", path);
+        .attr("d", path)
+        .attr('stroke', function(d) { return color(d["Team"]); });
 
     // Add a group element for each dimension.
     var g = svg.selectAll(".dimension")
