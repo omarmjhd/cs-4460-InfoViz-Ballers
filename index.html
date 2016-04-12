@@ -25,7 +25,7 @@
 
         <h1>InfoViz Ballers</h1>
 
-        <div class="wrap">
+        <div class="wrap" style="margin: auto;">
 
             <div class="parallel-coordinate"></div>
             <!--<div class="scatter-plot"></div>-->
@@ -91,12 +91,69 @@
             </div>
         </div>
 
+        <div class="row" id="filters">
+            <div class="col-lg-2">
+                <h2>Select Teams</h2>
+                <form onsubmit="alert('JS ALERT');">
+                    <input type="checkbox" name="team" value="ATL" checked > Atlanta Hawks<br>
+                    <input type="checkbox" name="team" value="BOS" checked > Boston Celtics<br>
+                    <input type="checkbox" name="team" value="BRK" checked > Brooklyn Nets<br>
+                    <input type="checkbox" name="team" value="CHI" checked > Chicago Bulls<br>
+                    <input type="checkbox" name="team" value="CLE" checked > Cleveland Cavaliers<br>
+                    <input type="checkbox" name="team" value="DAL" checked > Dallas Mavericks<br>
+                    <input type="checkbox" name="team" value="DEN" checked > Denver Nuggets<br>
+                    <input type="checkbox" name="team" value="GSW" checked > Golden State Warriors<br>
+                    <input type="checkbox" name="team" value="HOU" checked > Houston Rockets<br>
+                    <input type="checkbox" name="team" value="IND" checked > Indiana Pacers<br>
+                    <input type="checkbox" name="team" value="LAC" checked > Los Angeles Clippers<br>
+                    <input type="checkbox" name="team" value="LAL" checked > Los Angeles Lakers<br>
+                    <input type="checkbox" name="team" value="MEM" checked > Memphis Grizzlies<br>
+                    <input type="checkbox" name="team" value="MIA" checked > Miami Heat<br>
+                    <input type="checkbox" name="team" value="OKC" checked > Oklahoma City Thunder<br>
+                    <input type="checkbox" name="team" value="ORL" checked > Orlando Magic<br>
+                    <input type="checkbox" name="team" value="PHO" checked > Phoenix Suns<br>
+                    <input type="checkbox" name="team" value="POR" checked > Portland Trailblazers<br>
+                    <input type="checkbox" name="team" value="SAS" checked > San Antonio Spurs<br>
+                </form>
+            </div>
+
+            <div class="col-lg-2">
+                <h2>Select Years</h2>
+                <form onsubmit="alert('JS ALERT');">
+                    <input type="checkbox" name="team" value="2015" checked > 2015<br>
+                    <input type="checkbox" name="team" value="2014" checked > 2014<br>
+                    <input type="checkbox" name="team" value="2013" checked > 2013<br>
+                    <input type="checkbox" name="team" value="2012" checked > 2012<br>
+                    <input type="checkbox" name="team" value="2011" checked > 2011<br>
+                    <input type="checkbox" name="team" value="2010" checked > 2010<br>
+                </form>
+            </div>
+
+        </div>
+
+
+
+
+
         <!-- D3 library -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
         <!-- Parallel Coordinates Script -->
         <script src="parallel.js"></script>
         <!-- Scatter Plot Script -->
         <script src="scatter.js"></script>
+
+        <script>
+            var button = document.getElementById('filters');
+            //console.log(button);
+
+            d3.select(button)
+                    .append('p')
+                    .append('button')
+                    .text('Filter Data')
+                    .on('click', function() {
+                        alert("FILTER BUTTON CLICKED!");
+                    });
+        </script>
 
     </body>
 </html>

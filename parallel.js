@@ -34,7 +34,8 @@ d3.csv("Results.csv", function(error, results) {
     console.log("Beginning chart for parallel");
     // Extract the list of dimensions and create a scale for each.
     x.domain(dimensions = d3.keys(results[0]).filter(function(d) {
-        return d != "Team" && (y[d] = d3.scale.linear()
+        
+        return d != "Year" && d != "Team" && (y[d] = d3.scale.linear()
                 .domain(d3.extent(results, function(p) { return +p[d]; }))
                 .range([height, 0]));
     }));

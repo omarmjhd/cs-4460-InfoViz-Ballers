@@ -1,4 +1,19 @@
-function drawScatter(x, y, location, width, height) {
+function contains(array, string) {
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] === string) {
+            return true;
+        }
+    }
+    return false;
+}
+
+var allTeams = ['ATL', 'BOS', 'BRK', 'CHI', 'CLE', 'DAL', 'DEN', 'GSW', 'HOU', 'IND', 'LAC', 'LAL', 'MEM', 'MIA',
+    'OKC', 'ORL', 'PHO', 'POR', 'SAS', 'TOR'];
+
+var missingSA = ['ATL', 'BOS', 'BRK', 'CHI', 'CLE', 'DAL', 'DEN', 'GSW', 'HOU', 'IND', 'LAC', 'LAL', 'MEM', 'MIA',
+    'OKC', 'ORL', 'PHO', 'POR', 'TOR'];
+
+function drawScatter(x, y, location, width, height, filterArray) {
 
     var margin = {top: 10, right: 0, bottom: 30, left: 0};
     width = width - margin.left - margin.right;
@@ -16,13 +31,13 @@ function drawScatter(x, y, location, width, height) {
 
     // setup x
     var xValue = function(d) { return d[x];}, // data -> value
-        xScale = d3.scale.linear().range([0, width]), // value -> display
+        xScale = d3.scale.linear().range([0, width]), // value -> display, range should be dataMin -> dataMax
         xMap = function(d) { return xScale(xValue(d));}, // data -> display
         xAxis = d3.svg.axis().scale(xScale).orient("bottom");
 
     // setup y
     var yValue = function(d) { return d[y];}, // data -> value
-        yScale = d3.scale.linear().range([0, height]), // value -> display
+        yScale = d3.scale.linear().range([0, height]), // value -> display, range should be dataMin -> dataMax
         yMap = function(d) { return yScale(yValue(d));}, // data -> display
         yAxis = d3.svg.axis().scale(yScale).orient("left");
 
@@ -88,6 +103,7 @@ function drawScatter(x, y, location, width, height) {
         scatter.selectAll(".dot")
             .data(data)
             .enter().append("circle")
+            .filter(function(d) { return contains(filterArray, d["Team"]); }) //need to create an array that has strings of teams based on user dropdown selection
             .attr("class", "dot")
             .attr("r", 5)
             .attr("cx", xMap)
@@ -151,24 +167,24 @@ function drawScatter(x, y, location, width, height) {
 
 //Playoff Rank Scatters
 
-drawScatter("EFG",                  "Playoff Rank", ".EFG-PR", 250, 250);
-drawScatter("Assists",              "Playoff Rank", ".AST-PR", 250, 250);
-drawScatter("Turnover Percentage",  "Playoff Rank", ".TO-PR", 250, 250);
+drawScatter("EFG",                  "Playoff Rank",        ".EFG-PR",   150, 150, allTeams);
+drawScatter("Assists",              "Playoff Rank",        ".AST-PR",   150, 150, allTeams);
+drawScatter("Turnover Percentage",  "Playoff Rank",        ".TO-PR",    150, 150, allTeams);
 
-//EFG Scatters
+//EFG Scatters, allTeams
 
-drawScatter("Playoff Rank",         "EFG", ".PR-EFG", 250, 250);
-drawScatter("Assists",              "EFG", ".AST-EFG", 250, 250);
-drawScatter("Turnover Percentage",  "EFG", ".TO-EFG", 250, 250);
+drawScatter("Playoff Rank",         "EFG",                 ".PR-EFG",   150, 150, allTeams);
+drawScatter("Assists",              "EFG",                 ".AST-EFG",  150, 150, allTeams);
+drawScatter("Turnover Percentage",  "EFG",                 ".TO-EFG",   150, 150, allTeams);
 
-//AST Scatters
+//AST Scatters, allTeams
 
-drawScatter("Playoff Rank",         "Assists", ".PR-AST", 250, 250);
-drawScatter("EFG",                  "Assists", ".EFG-AST", 250, 250);
-drawScatter("Turnover Percentage",  "Assists", ".TO-AST", 250, 250);
+drawScatter("Playoff Rank",         "Assists",             ".PR-AST",   150, 150, allTeams);
+drawScatter("EFG",                  "Assists",             ".EFG-AST",  150, 150, allTeams);
+drawScatter("Turnover Percentage",  "Assists",             ".TO-AST",   150, 150, allTeams);
 
-//TO ScattersTO
+//TO ScattersTO, allTeams
 
-drawScatter("Playoff Rank",         "Turnover Percentage", ".PR-TO", 250, 250);
-drawScatter("EFG",                  "Turnover Percentage", ".EFG-TO", 250, 250);
-drawScatter("Assists",              "Turnover Percentage", ".AST-TO", 250, 250);
+drawScatter("Playoff Rank",         "Turnover Percentage", ".PR-TO",    150, 150, allTeams);
+drawScatter("EFG",                  "Turnover Percentage", ".EFG-TO",   150, 150, allTeams);
+drawScatter("Assists",              "Turnover Percentage", ".AST-TO",   150, 150, allTeams);
