@@ -23,6 +23,7 @@ d3.select(button)
         //console.log("YEARS");
         //console.log(years);
 
+        d3.selectAll("svg").remove();
         parallel(teams, years);
         drawAllScatter(150, 150, teams, years);
 
