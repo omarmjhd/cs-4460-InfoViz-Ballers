@@ -154,7 +154,7 @@ function parallel(teamArray, yearArray) {
         for (var i = 0; i < teamArray.length; i++) {
 
             if (teamArray[i] === team) {
-                console.log(team);
+                //console.log(team);
                 teamValid = true;
             }
         }
@@ -162,7 +162,7 @@ function parallel(teamArray, yearArray) {
         for (var i = 0; i < yearArray.length; i++) {
 
             if (yearArray[i] === year) {
-                console.log(year);
+                //console.log(year);
                 yearValid = true;
 
             }

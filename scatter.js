@@ -96,8 +96,7 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
         scatter.selectAll(".dot")
             .data(data)
             .enter().append("circle")
-            //.filter(function(d) { return contains(teamArray, d["Team"]); }) //need to create an array that has strings of teams based on user dropdown selection
-            .filter(function(d) { return contains(yearArray, d["Year"]); })
+            .filter(function(d) { return filterFunction(teamArray, yearArray, d["Team"], d["Year"]); })
             .attr("class", "dot")
             .attr("r", 5)
             .attr("cx", xMap)
@@ -157,16 +156,31 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
 
 }
 
-function contains(array, string) {
+function filterFunction(teamArray, yearArray, team, year) {
 
-    console.log(array);
-    console.log(string);
-    for (var i = 0; i < array.length; i++) {
-        if (array[i] === string) {
-            return true;
+    //console.log(array);
+
+    teamValid = false;
+    yearValid = false;
+
+    for (var i = 0; i < teamArray.length; i++) {
+
+        if (teamArray[i] === team) {
+            //console.log(team);
+            teamValid = true;
         }
     }
-    return false;
+
+    for (var i = 0; i < yearArray.length; i++) {
+
+        if (yearArray[i] === year) {
+            //console.log(year);
+            yearValid = true;
+
+        }
+    }
+
+    return teamValid && yearValid;
 }
 
 //drawScatter("Assists", "Turnover Percentage", ".scatter-plot", 600, 600);
