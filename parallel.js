@@ -1,4 +1,4 @@
-function parallel(filterArray) {
+function parallel(teamArray, yearArray) {
     var margin = {top: 30, right: 10, bottom: 10, left: 10},
         width = 960 - margin.left - margin.right,
         height = 350 - margin.top - margin.bottom;
@@ -55,7 +55,8 @@ function parallel(filterArray) {
             .selectAll("path")
             .data(results)
             .enter().append("path")
-            .filter(function(d) { return contains(allTeams, d["Team"]); }) //need to create an array that has strings of teams based on user dropdown selection
+            .filter(function(d) {
+                return filterFunction(teamArray, yearArray, d["Team"], d["Year"]); }) //need to create an array that has strings of teams based on user dropdown selection
             .attr("d", path)
             .attr('stroke', function(d) { return color(d["Team"]); });
 
@@ -142,14 +143,32 @@ function parallel(filterArray) {
             }) ? null : "none";
         });
     }
+    
+    function filterFunction(teamArray, yearArray, team, year) {
 
-    function contains(array, string) {
-        for (var i = 0; i < array.length; i++) {
-            if (array[i] === string) {
-                return true;
+        //console.log(array);
+
+        teamValid = false;
+        yearValid = false;
+
+        for (var i = 0; i < teamArray.length; i++) {
+
+            if (teamArray[i] === team) {
+                console.log(team);
+                teamValid = true;
             }
         }
-        return false;
+
+        for (var i = 0; i < yearArray.length; i++) {
+
+            if (yearArray[i] === year) {
+                console.log(year);
+                yearValid = true;
+
+            }
+        }
+
+        return teamValid && yearValid;
     }
 
 }
@@ -164,4 +183,6 @@ var missingSA = ['ATL', 'BOS', 'BRK', 'CHI', 'CLE', 'DAL', 'DEN', 'GSW', 'HOU', 
 
 var redTeams = ['ATL', 'CHI', 'CLE', 'HOU', 'MIA', 'POR'];
 
-parallel(allTeams);
+var allYears = ['2015', '2014', '2013', '2012', '2011', '2010'];
+
+parallel(allTeams, allYears);

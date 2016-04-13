@@ -94,7 +94,7 @@
         <div class="row" id="filters">
             <div class="col-lg-2">
                 <h2>Select Teams</h2>
-                <form onsubmit="alert('JS ALERT');">
+                <form onsubmit="alert('JS ALERT');" id="teams">
                     <input type="checkbox" name="team" value="ATL" checked > Atlanta Hawks<br>
                     <input type="checkbox" name="team" value="BOS" checked > Boston Celtics<br>
                     <input type="checkbox" name="team" value="BRK" checked > Brooklyn Nets<br>
@@ -119,13 +119,13 @@
 
             <div class="col-lg-2">
                 <h2>Select Years</h2>
-                <form onsubmit="alert('JS ALERT');">
-                    <input type="checkbox" name="team" value="2015" checked > 2015<br>
-                    <input type="checkbox" name="team" value="2014" checked > 2014<br>
-                    <input type="checkbox" name="team" value="2013" checked > 2013<br>
-                    <input type="checkbox" name="team" value="2012" checked > 2012<br>
-                    <input type="checkbox" name="team" value="2011" checked > 2011<br>
-                    <input type="checkbox" name="team" value="2010" checked > 2010<br>
+                <form onsubmit="alert('JS ALERT');" id="years">
+                    <input type="checkbox" name="year" value="2015" checked > 2015<br>
+                    <input type="checkbox" name="year" value="2014" checked > 2014<br>
+                    <input type="checkbox" name="year" value="2013" checked > 2013<br>
+                    <input type="checkbox" name="year" value="2012" checked > 2012<br>
+                    <input type="checkbox" name="year" value="2011" checked > 2011<br>
+                    <input type="checkbox" name="year" value="2010" checked > 2010<br>
                 </form>
             </div>
 
@@ -152,6 +152,26 @@
                     .text('Filter Data')
                     .on('click', function() {
                         alert("FILTER BUTTON CLICKED!");
+
+
+                        var teams = [];
+                        $('#teams input:checked').each(function() {
+                            teams.push($(this).attr('value'));
+                        });
+
+                        var years = [];
+                        $('#years input:checked').each(function() {
+                            years.push($(this).attr('value'));
+                        });
+
+                        console.log("TEAMS");
+                        console.log(teams);
+                        console.log("YEARS");
+                        console.log(years);
+
+                        parallel(teams, years);
+                        drawAllScatter(150, 150, teams, years);
+
                     });
         </script>
 

@@ -1,19 +1,12 @@
-function contains(array, string) {
-    for (var i = 0; i < array.length; i++) {
-        if (array[i] === string) {
-            return true;
-        }
-    }
-    return false;
-}
-
 var allTeams = ['ATL', 'BOS', 'BRK', 'CHI', 'CLE', 'DAL', 'DEN', 'GSW', 'HOU', 'IND', 'LAC', 'LAL', 'MEM', 'MIA',
     'OKC', 'ORL', 'PHO', 'POR', 'SAS', 'TOR'];
+
+var allYears = ['2015', '2014', '2013', '2012', '2011', '2010'];
 
 var missingSA = ['ATL', 'BOS', 'BRK', 'CHI', 'CLE', 'DAL', 'DEN', 'GSW', 'HOU', 'IND', 'LAC', 'LAL', 'MEM', 'MIA',
     'OKC', 'ORL', 'PHO', 'POR', 'TOR'];
 
-function drawScatter(x, y, location, width, height, filterArray) {
+function drawScatter(x, y, location, width, height, teamArray, yearArray) {
 
     var margin = {top: 10, right: 0, bottom: 30, left: 0};
     width = width - margin.left - margin.right;
@@ -103,7 +96,8 @@ function drawScatter(x, y, location, width, height, filterArray) {
         scatter.selectAll(".dot")
             .data(data)
             .enter().append("circle")
-            .filter(function(d) { return contains(filterArray, d["Team"]); }) //need to create an array that has strings of teams based on user dropdown selection
+            //.filter(function(d) { return contains(teamArray, d["Team"]); }) //need to create an array that has strings of teams based on user dropdown selection
+            .filter(function(d) { return contains(yearArray, d["Year"]); })
             .attr("class", "dot")
             .attr("r", 5)
             .attr("cx", xMap)
@@ -163,28 +157,46 @@ function drawScatter(x, y, location, width, height, filterArray) {
 
 }
 
+function contains(array, string) {
+
+    console.log(array);
+    console.log(string);
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] === string) {
+            return true;
+        }
+    }
+    return false;
+}
+
 //drawScatter("Assists", "Turnover Percentage", ".scatter-plot", 600, 600);
 
 //Playoff Rank Scatters
 
-drawScatter("EFG",                  "Playoff Rank",        ".EFG-PR",   150, 150, allTeams);
-drawScatter("Assists",              "Playoff Rank",        ".AST-PR",   150, 150, allTeams);
-drawScatter("Turnover Percentage",  "Playoff Rank",        ".TO-PR",    150, 150, allTeams);
+function drawAllScatter(width, height, teamArray, yearArray) {
+
+    drawScatter("EFG",                  "Playoff Rank",        ".EFG-PR",   width, height, teamArray, yearArray);
+    drawScatter("Assists",              "Playoff Rank",        ".AST-PR",   width, height, teamArray, yearArray);
+    drawScatter("Turnover Percentage",  "Playoff Rank",        ".TO-PR",    width, height, teamArray, yearArray);
 
 //EFG Scatters, allTeams
 
-drawScatter("Playoff Rank",         "EFG",                 ".PR-EFG",   150, 150, allTeams);
-drawScatter("Assists",              "EFG",                 ".AST-EFG",  150, 150, allTeams);
-drawScatter("Turnover Percentage",  "EFG",                 ".TO-EFG",   150, 150, allTeams);
+    drawScatter("Playoff Rank",         "EFG",                 ".PR-EFG",   width, height, teamArray, yearArray);
+    drawScatter("Assists",              "EFG",                 ".AST-EFG",  width, height, teamArray, yearArray);
+    drawScatter("Turnover Percentage",  "EFG",                 ".TO-EFG",   width, height, teamArray, yearArray);
 
 //AST Scatters, allTeams
 
-drawScatter("Playoff Rank",         "Assists",             ".PR-AST",   150, 150, allTeams);
-drawScatter("EFG",                  "Assists",             ".EFG-AST",  150, 150, allTeams);
-drawScatter("Turnover Percentage",  "Assists",             ".TO-AST",   150, 150, allTeams);
+    drawScatter("Playoff Rank",         "Assists",             ".PR-AST",   width, height, teamArray, yearArray);
+    drawScatter("EFG",                  "Assists",             ".EFG-AST",  width, height, teamArray, yearArray);
+    drawScatter("Turnover Percentage",  "Assists",             ".TO-AST",   width, height, teamArray, yearArray);
 
 //TO ScattersTO, allTeams
 
-drawScatter("Playoff Rank",         "Turnover Percentage", ".PR-TO",    150, 150, allTeams);
-drawScatter("EFG",                  "Turnover Percentage", ".EFG-TO",   150, 150, allTeams);
-drawScatter("Assists",              "Turnover Percentage", ".AST-TO",   150, 150, allTeams);
+    drawScatter("Playoff Rank",         "Turnover Percentage", ".PR-TO",    width, height, teamArray, yearArray);
+    drawScatter("EFG",                  "Turnover Percentage", ".EFG-TO",   width, height, teamArray, yearArray);
+    drawScatter("Assists",              "Turnover Percentage", ".AST-TO",   width, height, teamArray, yearArray);
+
+}
+
+drawAllScatter(150, 150, allTeams, allYears);
