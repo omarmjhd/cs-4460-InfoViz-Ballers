@@ -27,6 +27,4 @@ d3.select(button)
         parallel(teams, years);
         drawAllScatter(150, 150, teams, years);
 
-    });/**
- * Created by omarmujahid on 4/12/16.
- */
+    });
