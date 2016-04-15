@@ -8,7 +8,7 @@ var missingSA = ['ATL', 'BOS', 'BRK', 'CHI', 'CLE', 'DAL', 'DEN', 'GSW', 'HOU', 
 
 function drawScatter(x, y, location, width, height, teamArray, yearArray) {
 
-    var margin = {top: 10, right: 0, bottom: 30, left: 0};
+    var margin = {top: 10, right: 35, bottom: 30, left: 35};
     width = width - margin.left - margin.right;
     height = height - margin.top - margin.bottom;
 
@@ -47,6 +47,7 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
     var tooltip = d3.select("body").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
+		
 
     // load data
     d3.csv("Results.csv", function(error, data) {
@@ -61,8 +62,26 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
 
         //SCATTER PLOT START
         // don't want dots overlapping axis, so add in buffer to data domain
-        xScale.domain([d3.min(data, xValue)-1, d3.max(data, xValue)+1]);
-        yScale.domain([d3.min(data, yValue)-1, d3.max(data, yValue)+1]);
+		
+		if (x == "Playoff Rank") {
+			xScale.domain([0,6]);
+			xAxis.tickValues([1,2,3,4,5]);
+		} else {
+		var xDomain = getBufferValue(d3.min(data, xValue), d3.max(data, xValue));
+        xScale.domain([xDomain[0], xDomain[1]]);
+		var tickVals = (getTickValues(xDomain[0], xDomain[1], 5));
+		xAxis.tickValues(tickVals);
+		}
+		
+		var yDomain = getBufferValue(d3.min(data, yValue), d3.max(data, yValue));
+		if (y == "Playoff Rank") {
+			yScale.domain([6,0]);
+			yAxis.tickValues([5,4,3,2,1,0]);
+		} else {
+			yScale.domain([yDomain[1], yDomain[0]]);
+			yAxis.ticks(5);
+		}
+
 
         // x-axis
         scatter.append("g")
@@ -156,6 +175,50 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
 
 }
 
+//gets min & max vals for the domain to show on the scatterplot
+function getBufferValue(raw_min, raw_max) {
+	var output = (raw_max - raw_min) / 10.0
+	if (output < 0) {
+		output = -1 * output;
+	}
+	var uMin = raw_min - output;
+	var uMax = raw_max + output;
+	var output = round(uMin, uMax);
+	return output;
+}
+
+//rounds the values to nice round numbers if possible
+function round(min, max) {
+	if (max < 1.0) {
+		return [min,max];
+	} else if (min > 100.0) {
+		var min_out = (Math.floor(min / 100.0)) * 100.0;
+		var max_out = (Math.ceil(max / 100.0)) * 100.0;
+		return [min_out, max_out]
+	} else { 
+		var min_out = (Math.floor(min));
+		var max_out = (Math.ceil(max));
+		return [min_out, max_out];
+	}
+
+
+}
+
+//sets tickvals for the scatter graphs
+//currently only using for x-axis
+//third parameter changes the number of ticks to show
+//currently showing 5 to avoid overlapping
+function getTickValues(min, max, numTicks) {
+	var tickVals = [];
+	var increment = (max - min) / (numTicks - 1);
+	console.log(min);
+	for (var i = 0; i < numTicks; i++) {
+		tickVals.push(min + (i * increment));
+	}
+	return tickVals;
+
+}
+
 function filterFunction(teamArray, yearArray, team, year) {
 
     //console.log(array);
@@ -213,4 +276,4 @@ function drawAllScatter(width, height, teamArray, yearArray) {
 
 }
 
-drawAllScatter(150, 150, allTeams, allYears);
+drawAllScatter(200, 200, allTeams, allYears);
