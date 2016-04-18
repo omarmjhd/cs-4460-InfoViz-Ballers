@@ -129,7 +129,7 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
                  tooltip.style("opacity", 1);
         
                  // TODO: fill to the tool tip with the appropriate data
-                 tooltip.html(d["Year"] + " " + d["Team"])
+                 tooltip.html(d["Year"] + " " + teamConversion(d["Team"]))
                  .style("left", d3.event.pageX + 5 + "px")
                  .style("top", d3.event.pageY + 5 + "px");
 
@@ -232,6 +232,52 @@ function filterFunction(teamArray, yearArray, team, year) {
     }
 
     return teamValid && yearValid;
+}
+
+function teamConversion(team) {
+
+    switch(team) {
+        case "ATL":
+            return "Atlanta Hawks";
+        case'BOS':
+            return "Boston Celtics";
+        case 'BRK':
+            return "Brooklyn Nets";
+        case 'CHI':
+            return "Chicago Bulls";
+        case 'CLE':
+            return "Cleveland Cavaliers";
+        case 'DAL':
+            return "Dallas Mavericks";
+        case 'DEN':
+            return "Denver Nuggets";
+        case 'GSW':
+            return "Golden State Warriors";
+        case 'HOU':
+            return "Houston Rockets";
+        case 'IND':
+            return "Indiana Pacers";
+        case 'LAC':
+            return "Los Angeles Clippers";
+        case 'LAL':
+            return "Los Angeles Lakers";
+        case 'MEM':
+            return "Memphis Grizzlies";
+        case 'MIA':
+            return "Miami Heat";
+        case 'OKC':
+            return "Oklahoma City Thunder";
+        case 'ORL':
+            return "Orlando Magic";
+        case 'PHO':
+            return "Phoenix Suns";
+        case 'POR':
+            return "Portland Trailblazers";
+        case 'SAS':
+            return "San Antonio Spurs";
+        case 'TOR':
+            return "Toronto Raptors";
+    }
 }
 
 //drawScatter("Assists", "Turnover Percentage", ".scatter-plot", 600, 600);
