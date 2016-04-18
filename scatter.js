@@ -46,6 +46,8 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
     // add the tooltip area to the webpage
     var tooltip = d3.select("body").append("div")
         .attr("class", "tooltip")
+        .style("background-color", "black")
+        .style("color", "white")
         .style("opacity", 0);
 		
 
@@ -120,57 +122,56 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
             .attr("r", 5)
             .attr("cx", xMap)
             .attr("cy", yMap)
-            .style("fill", function(d) { return color(d["Team"]); });
-        /*.on("mouseover", function(d) {
+            .style("fill", function(d) { return color(d["Team"]); })
+            .on("mouseover", function(d) {
 
-         // TODO: show the tool tip
-         tooltip.style("opacity", 1);
-
-         // TODO: fill to the tool tip with the appropriate data
-         tooltip.html(d["Cereal Name"])
-         .style("left", d3.event.pageX + 5 + "px")
-         .style("top", d3.event.pageY + 5 + "px");
-
-         // TODO: ADD DELAY
-         d3.selectAll(".dot").transition()
-         .duration(300)
-         .attr("r", function(e) {
-
-         if (d["Cereal Name"] == e["Cereal Name"]) {
-         return 10 * e["Serving Size Weight"];
-         } else {
-         return 5 * e["Serving Size Weight"];
-         }
-
-         });
-
-         })
-         .on("mouseout", function(d) {
-         // TODO: hide the tooltip
-         tooltip.style("opacity", 0);
-
-         // TODO: resize the nodes
-         d3.selectAll(".dot").transition()
-         .duration(500)
-         .attr("r", sizeForCircle);
-
-         })
-         .on("click", function(d) {
-
-         d3.selectAll(".bar").transition()
-         .duration(500)
-         .attr("fill", function(e) {
-
-         if (d["EFG"] < e["Average"]) {
-         return "black";
-         } else {
-         return color(cValue(e));;
-         }
-
-         });
-
-         });*/
-
+                 // TODO: show the tool tip
+                 tooltip.style("opacity", 1);
+        
+                 // TODO: fill to the tool tip with the appropriate data
+                 tooltip.html(d["Year"] + " " + d["Team"])
+                 .style("left", d3.event.pageX + 5 + "px")
+                 .style("top", d3.event.pageY + 5 + "px");
+        
+                 /* TODO: ADD DELAY
+                 d3.selectAll(".dot").transition()
+                 .duration(300)
+                 .attr("r", function(e) {
+        
+                 if (d["Cereal Name"] == e["Cereal Name"]) {
+                 return 10 * e["Serving Size Weight"];
+                 } else {
+                 return 5 * e["Serving Size Weight"];
+                 }
+        
+                 });
+        
+                 })
+                 .on("mouseout", function(d) {
+                 // TODO: hide the tooltip
+                 tooltip.style("opacity", 0);
+        
+                 // TODO: resize the nodes
+                 d3.selectAll(".dot").transition()
+                 .duration(500)
+                 .attr("r", sizeForCircle);
+        
+                 })
+                 .on("click", function(d) {
+        
+                 d3.selectAll(".bar").transition()
+                 .duration(500)
+                 .attr("fill", function(e) {
+        
+                 if (d["EFG"] < e["Average"]) {
+                 return "black";
+                 } else {
+                 return color(cValue(e));;
+                 }
+        
+                 });*/
+                 
+            });
     });
 
 }
