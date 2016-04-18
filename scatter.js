@@ -133,6 +133,22 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
                  .style("left", d3.event.pageX + 5 + "px")
                  .style("top", d3.event.pageY + 5 + "px");
 
+                // TODO: update text in our custom team label
+                d3.select("#team-year-name")
+                    .html(d["Year"] + " " + teamConversion(d["Team"]));
+
+                d3.select("#pr")
+                    .html(d["Playoff Rank"]);
+
+                d3.select("#efg")
+                    .html(d["EFG"]);
+
+                d3.select("#to")
+                    .html(d["Turnover Percentage"]);
+
+                d3.select("#ast")
+                    .html(d["Assists"]);
+
                  // TODO: expand all nodes with the same manufacturer
                  d3.selectAll(".dot").transition()
                      .duration(500)
@@ -222,7 +238,7 @@ function filterFunction(teamArray, yearArray, team, year) {
         }
     }
 
-    for (var i = 0; i < yearArray.length; i++) {
+    for (i = 0; i < yearArray.length; i++) {
 
         if (yearArray[i] === year) {
             //console.log(year);
@@ -234,6 +250,7 @@ function filterFunction(teamArray, yearArray, team, year) {
     return teamValid && yearValid;
 }
 
+//function to fill the whole team name where it is needed
 function teamConversion(team) {
 
     switch(team) {
