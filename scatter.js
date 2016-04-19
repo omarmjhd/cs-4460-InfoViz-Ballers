@@ -133,44 +133,42 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
                  .style("left", d3.event.pageX + 5 + "px")
                  .style("top", d3.event.pageY + 5 + "px");
 
-                // TODO: update text in our custom team label
-                d3.select("#team-year-name")
-                    .html(d["Year"] + " " + teamConversion(d["Team"]));
-
-                d3.select("#pr")
-                    .html(d["Playoff Rank"]);
-
-                d3.select("#efg")
-                    .html(d["EFG"]);
-
-                d3.select("#to")
-                    .html(d["Turnover Percentage"]);
-
-                d3.select("#ast")
-                    .html(d["Assists"]);
-
-                 // TODO: expand all nodes with the same manufacturer
-                 d3.selectAll(".dot").transition()
-                     .duration(500)
-                     .attr("r", function(e) {
-
-                         if (d["Year"] == e["Year"] && d["Team"] == e["Team"]) {
-                             return 10;
-                         } else {
-                             return 5;
-                         }
-                 });
-        
             })
             .on("mouseout", function(d) {
                 // TODO: hide the tooltip
                 tooltip.style("opacity", 0);
 
-                // TODO: resize the nodes
+
+            })
+            .on("click", function(d) {
+
+                // TODO: update text in our custom team label
+                d3.select("#team-year-name")
+                    .html(d["Year"] + " " + teamConversion(d["Team"]));
+
+                d3.select("#pr")
+                    .html(playoffConversion(d["Playoff Rank"]));
+
+                d3.select("#efg")
+                    .html(efgConversion(d["EFG"]));
+
+                d3.select("#to")
+                    .html(d["Turnover Percentage"] + "%");
+
+                d3.select("#ast")
+                    .html(d["Assists"]);
+
+                // TODO: expand all nodes with the same team
                 d3.selectAll(".dot").transition()
                     .duration(500)
-                    .attr("r", 5);
+                    .attr("r", function(e) {
 
+                        if (d["Year"] == e["Year"] && d["Team"] == e["Team"]) {
+                            return 10;
+                        } else {
+                            return 5;
+                        }
+                    });
             });
 
         
@@ -295,6 +293,33 @@ function teamConversion(team) {
         case 'TOR':
             return "Toronto Raptors";
     }
+}
+
+//function to fill the whole team name where it is needed
+function playoffConversion(playoffRank) {
+
+    switch(playoffRank) {
+        case "5":
+            return "Won NBA Finals";
+        case "4":
+            return "Lost NBA Finals";
+        case "3":
+            return "Lost Conference Finals";
+        case "2":
+            return "Lost Conference Semifinals";
+        case "1":
+            return "Lost First Round";
+
+    }
+}
+
+function efgConversion(efg) {
+
+    var percent = parseFloat(efg).toFixed(4);
+
+    percent = (percent * 100).toFixed(1);
+
+    return percent.toString() + "%";
 }
 
 //drawScatter("Assists", "Turnover Percentage", ".scatter-plot", 600, 600);
