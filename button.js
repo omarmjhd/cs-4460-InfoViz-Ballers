@@ -18,12 +18,21 @@ d3.select(button)
             years.push($(this).attr('value'));
         });
 
+        var items = [];
+        $('#items input:checked').each(function() {
+            items.push($(this).attr('value'));
+        });
+
+
+
         //console.log("TEAMS");
         //console.log(teams);
         //console.log("YEARS");
         //console.log(years);
+        console.log(items);
 
         d3.selectAll("svg").remove();
+
         parallel(teams, years);
         drawAllScatter(150, 150, teams, years);
 
