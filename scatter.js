@@ -146,6 +146,9 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
                 d3.select("#team-year-name")
                     .html(d["Year"] + " " + teamConversion(d["Team"]));
 
+                console.log("Setting PR");
+                console.log(d["Playoff Rank"]);
+                console.log(playoffConversion(d["Playoff Rank"]));
                 d3.select("#pr")
                     .html(playoffConversion(d["Playoff Rank"]));
 
@@ -298,19 +301,17 @@ function teamConversion(team) {
 //function to fill the whole team name where it is needed
 function playoffConversion(playoffRank) {
 
-    switch(playoffRank) {
-        case "5":
+        if (playoffRank == "5") {
             return "Won NBA Finals";
-        case "4":
+        } else if (playoffRank == "4") {
             return "Lost NBA Finals";
-        case "3":
+        } else if (playoffRank == "3") {
             return "Lost Conference Finals";
-        case "2":
+        } else if (playoffRank == "2") {
             return "Lost Conference Semifinals";
-        case "1":
+        } else {
             return "Lost First Round";
-
-    }
+        }
 }
 
 function efgConversion(efg) {
