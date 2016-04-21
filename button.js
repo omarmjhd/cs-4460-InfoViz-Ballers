@@ -1,4 +1,4 @@
-var button = document.getElementById('filters');
+var button = document.getElementById('button');
 //console.log(button);
 
 d3.select(button)

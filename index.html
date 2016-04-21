@@ -27,42 +27,51 @@
 
 
         <div class="row">
-            <div class="col-md-12">
-                <!--<div class="parallel-coordinate" style="margin-left: -60px;"></div>-->
-                <div class="parallel-coordinate"></div>
+            <div class="col-md-8">
+                <div class="parallel-coordinate" style="margin-left: -80px;"></div>
+
+                    <h2>Select Teams</h2>
+                    <form onsubmit="alert('JS ALERT');" id="teams">
+                        <input type="checkbox" name="team" value="ATL" checked > Atlanta Hawks<br>
+                        <input type="checkbox" name="team" value="BOS" checked > Boston Celtics<br>
+                        <input type="checkbox" name="team" value="BRK" checked > Brooklyn Nets<br>
+                        <input type="checkbox" name="team" value="CHI" checked > Chicago Bulls<br>
+                        <input type="checkbox" name="team" value="CLE" checked > Cleveland Cavaliers<br>
+                        <input type="checkbox" name="team" value="DAL" checked > Dallas Mavericks<br>
+                        <input type="checkbox" name="team" value="DEN" checked > Denver Nuggets<br>
+                        <input type="checkbox" name="team" value="GSW" checked > Golden State Warriors<br>
+                        <input type="checkbox" name="team" value="HOU" checked > Houston Rockets<br>
+                        <input type="checkbox" name="team" value="IND" checked > Indiana Pacers<br>
+                        <input type="checkbox" name="team" value="LAC" checked > Los Angeles Clippers<br>
+                        <input type="checkbox" name="team" value="LAL" checked > Los Angeles Lakers<br>
+                        <input type="checkbox" name="team" value="MEM" checked > Memphis Grizzlies<br>
+                        <input type="checkbox" name="team" value="MIA" checked > Miami Heat<br>
+                        <input type="checkbox" name="team" value="OKC" checked > Oklahoma City Thunder<br>
+                        <input type="checkbox" name="team" value="ORL" checked > Orlando Magic<br>
+                        <input type="checkbox" name="team" value="PHO" checked > Phoenix Suns<br>
+                        <input type="checkbox" name="team" value="POR" checked > Portland Trailblazers<br>
+                        <input type="checkbox" name="team" value="SAS" checked > San Antonio Spurs<br>
+                    </form>
+
+                <!--<div class="parallel-coordinate"></div>-->
             </div>
-            <!--<div class="col-md-4">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Playoff Result</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>Won NBA Finals</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Lost NBA Finals</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Lost Conference Finals</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Lost Conference Semifinals</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Lost First Round</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>-->
+
+            <div class="col-md-4">
+                <div class="row" id="filters">
+                        <h2>Select Years</h2>
+                        <form onsubmit="alert('JS ALERT');" id="years">
+                            <input type="checkbox" name="year" value="2015" checked > 2015<br>
+                            <input type="checkbox" name="year" value="2014" checked > 2014<br>
+                            <input type="checkbox" name="year" value="2013" checked > 2013<br>
+                            <input type="checkbox" name="year" value="2012" checked > 2012<br>
+                            <input type="checkbox" name="year" value="2011" checked > 2011<br>
+                            <input type="checkbox" name="year" value="2010" checked > 2010<br>
+                        </form>
+
+                        <div id="button"></div>
+                    </div>
+
+            </div>
 
         </div>
         <div class="row">
@@ -113,7 +122,7 @@
             </div>
         </div>
 
-        <div class="row" id="filters">
+        <!--<div class="row" id="filters">
             <div class="col-lg-2">
                 <h2>Select Teams</h2>
                 <form onsubmit="alert('JS ALERT');" id="teams">
@@ -149,7 +158,7 @@
                     <input type="checkbox" name="year" value="2011" checked > 2011<br>
                     <input type="checkbox" name="year" value="2010" checked > 2010<br>
                 </form>
-            </div>
+            </div>-->
 
             <div class="col-lg-4">
                 <h2>Team Information</h2>
