@@ -298,18 +298,16 @@ function teamConversion(team) {
 //function to fill the whole team name where it is needed
 function playoffConversion(playoffRank) {
 
-    switch(playoffRank) {
-        case "5":
-            return "Won NBA Finals";
-        case "4":
-            return "Lost NBA Finals";
-        case "3":
-            return "Lost Conference Finals";
-        case "2":
-            return "Lost Conference Semifinals";
-        case "1":
-            return "Lost First Round";
-
+    if (playoffRank == "5") {
+        return "Won NBA Finals";
+    } else if (playoffRank == "4") {
+        return "Lost NBA Finals";
+    } else if (playoffRank == "3") {
+        return "Lost Conference Finals";
+    } else if (playoffRank == "2") {
+        return "Lost Conference Semifinals";
+    } else {
+        return "Lost First Round";
     }
 }
 
