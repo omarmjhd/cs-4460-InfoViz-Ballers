@@ -15,7 +15,7 @@ d3.select(button)
 
         var teams = [];
         $('#teams input:checked').each(function() {
-            items.push($(this).attr('value'));
+            teams.push($(this).attr('value'));
         });
 
 
