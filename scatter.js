@@ -133,10 +133,26 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
                  .style("left", d3.event.pageX + 5 + "px")
                  .style("top", d3.event.pageY + 5 + "px");
 
+                // TODO: expand all nodes with the same team
+                d3.selectAll(".dot").transition()
+                    .duration(500)
+                    .attr("r", function(e) {
+
+                        if (d["Year"] == e["Year"] && d["Team"] == e["Team"]) {
+                            return 10;
+                        } else {
+                            return 5;
+                        }
+                    });
+
             })
             .on("mouseout", function(d) {
                 // TODO: hide the tooltip
                 tooltip.style("opacity", 0);
+
+                d3.selectAll(".dot").transition()
+                    .duration(500)
+                    .attr("r", 5);
 
 
             })
