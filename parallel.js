@@ -1,7 +1,7 @@
 function parallel(teamArray, yearArray) {
     var margin = {top: 30, right: 10, bottom: 10, left: 10},
         width = 960 - margin.left - margin.right,
-        height = 350 - margin.top - margin.bottom;
+        height = 550 - margin.top - margin.bottom;
 
     var x = d3.scale.ordinal().rangePoints([0, width], 1),
         y = {},

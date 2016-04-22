@@ -150,3 +150,7 @@ svg {
 .dropdown-check-list ul.items li {
   list-style: none;
 }
+
+.menu {
+  position: fixed;
+}
