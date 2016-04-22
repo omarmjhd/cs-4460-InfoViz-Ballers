@@ -213,7 +213,7 @@ function round(min, max) {
 function getTickValues(min, max, numTicks) {
 	var tickVals = [];
 	var increment = (max - min) / (numTicks - 1);
-	console.log(min);
+	//console.log(min);
 	for (var i = 0; i < numTicks; i++) {
 		tickVals.push(min + (i * increment));
 	}

@@ -73,39 +73,47 @@
 
 <div class="col-lg-4">
 
-        <div class="row" id="filters">
-                <h2>Select Teams</h2>
-                <form onsubmit="alert('JS ALERT');" id="teams">
-                    <input type="checkbox" name="team" value="ATL" checked > Atlanta Hawks<br>
-                    <input type="checkbox" name="team" value="BOS" checked > Boston Celtics<br>
-                    <input type="checkbox" name="team" value="BRK" checked > Brooklyn Nets<br>
-                    <input type="checkbox" name="team" value="CHI" checked > Chicago Bulls<br>
-                    <input type="checkbox" name="team" value="CLE" checked > Cleveland Cavaliers<br>
-                    <input type="checkbox" name="team" value="DAL" checked > Dallas Mavericks<br>
-                    <input type="checkbox" name="team" value="DEN" checked > Denver Nuggets<br>
-                    <input type="checkbox" name="team" value="GSW" checked > Golden State Warriors<br>
-                    <input type="checkbox" name="team" value="HOU" checked > Houston Rockets<br>
-                    <input type="checkbox" name="team" value="IND" checked > Indiana Pacers<br>
-                    <input type="checkbox" name="team" value="LAC" checked > Los Angeles Clippers<br>
-                    <input type="checkbox" name="team" value="LAL" checked > Los Angeles Lakers<br>
-                    <input type="checkbox" name="team" value="MEM" checked > Memphis Grizzlies<br>
-                    <input type="checkbox" name="team" value="MIA" checked > Miami Heat<br>
-                    <input type="checkbox" name="team" value="OKC" checked > Oklahoma City Thunder<br>
-                    <input type="checkbox" name="team" value="ORL" checked > Orlando Magic<br>
-                    <input type="checkbox" name="team" value="PHO" checked > Phoenix Suns<br>
-                    <input type="checkbox" name="team" value="POR" checked > Portland Trailblazers<br>
-                    <input type="checkbox" name="team" value="SAS" checked > San Antonio Spurs<br>
-                </form>
+        <div class="row">
 
-                <h2>Select Years</h2>
-                <form onsubmit="alert('JS ALERT');" id="years">
-                    <input type="checkbox" name="year" value="2015" checked > 2015<br>
-                    <input type="checkbox" name="year" value="2014" checked > 2014<br>
-                    <input type="checkbox" name="year" value="2013" checked > 2013<br>
-                    <input type="checkbox" name="year" value="2012" checked > 2012<br>
-                    <input type="checkbox" name="year" value="2011" checked > 2011<br>
-                    <input type="checkbox" name="year" value="2010" checked > 2010<br>
-                </form>
+            <div id="teamList" class="dropdown-check-list" tabindex="100">
+                <span class="anchor">Select Teams</span>
+                <ul id="teams" class="items">
+                    <li><input type="checkbox" name="team" value="ATL" checked > Atlanta Hawks</li>
+                    <li><input type="checkbox" name="team" value="BOS" checked > Boston Celtics</li>
+                    <li><input type="checkbox" name="team" value="BRK" checked > Brooklyn Nets</li>
+                    <li><input type="checkbox" name="team" value="CHI" checked > Chicago Bulls</li>
+                    <li><input type="checkbox" name="team" value="CLE" checked > Cleveland Cavaliers</li>
+                    <li><input type="checkbox" name="team" value="DAL" checked > Dallas Mavericks</li>
+                    <li><input type="checkbox" name="team" value="DEN" checked > Denver Nuggets</li>
+                    <li><input type="checkbox" name="team" value="GSW" checked > Golden State Warriors</li>
+                    <li><input type="checkbox" name="team" value="HOU" checked > Houston Rockets</li>
+                    <li><input type="checkbox" name="team" value="IND" checked > Indiana Pacers</li>
+                    <li><input type="checkbox" name="team" value="LAC" checked > Los Angeles Clippers</li>
+                    <li><input type="checkbox" name="team" value="LAL" checked > Los Angeles Lakers</li>
+                    <li><input type="checkbox" name="team" value="MEM" checked > Memphis Grizzlies</li>
+                    <li><input type="checkbox" name="team" value="MIA" checked > Miami Heat</li>
+                    <li><input type="checkbox" name="team" value="OKC" checked > Oklahoma City Thunder</li>
+                    <li><input type="checkbox" name="team" value="ORL" checked > Orlando Magic</li>
+                    <li><input type="checkbox" name="team" value="PHO" checked > Phoenix Suns</li>
+                    <li><input type="checkbox" name="team" value="POR" checked > Portland Trailblazers</li>
+                    <li><input type="checkbox" name="team" value="SAS" checked > San Antonio Spurs</li>
+                </ul>
+            </div>
+
+            <div id="yearList" class="dropdown-check-list" tabindex="100">
+                <span class="anchor">Select Years</span>
+                <ul id="years" class="items">
+                    <li><input type="checkbox" name="year" value="2015" checked > 2015</li>
+                    <li><input type="checkbox" name="year" value="2014" checked > 2014</li>
+                    <li><input type="checkbox" name="year" value="2013" checked > 2013</li>
+                    <li><input type="checkbox" name="year" value="2012" checked > 2012</li>
+                    <li><input type="checkbox" name="year" value="2011" checked > 2011</li>
+                    <li><input type="checkbox" name="year" value="2010" checked > 2010</li>
+                </ul>
+            </div>
+
+            <div id="button"></div>
+
 
             <h2>Team Information</h2>
                 <h2 id="team-year-name">0000 Team Name</h2>
@@ -129,6 +137,7 @@
         <!-- Scatter Plot Script -->
         <script src="scatter.js"></script>
         <script src="button.js"></script>
+        <script src="list.js"></script>
 
     </body>
 </html>

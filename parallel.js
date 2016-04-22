@@ -19,7 +19,7 @@ function parallel(teamArray, yearArray) {
         background,
         foreground;
 
-    console.log(d3.select(".parallel-coordinate"));
+    //console.log(d3.select(".parallel-coordinate"));
 
     var svg = d3.select(".parallel-coordinate").append("svg")
         .attr("width", width     + margin.left + margin.right)
@@ -28,11 +28,11 @@ function parallel(teamArray, yearArray) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-    console.log("SVG Parallel" + svg);
+    //console.log("SVG Parallel" + svg);
 
     d3.csv("Results.csv", function(error, results) {
 
-        console.log("Beginning chart for parallel");
+        //console.log("Beginning chart for parallel");
         // Extract the list of dimensions and create a scale for each.
         x.domain(dimensions = d3.keys(results[0]).filter(function(d) {
 
@@ -111,7 +111,7 @@ function parallel(teamArray, yearArray) {
             .attr("width", 16);
 
 
-        console.log("Done chart for parallel");
+        //console.log("Done chart for parallel");
     });
 
     function position(d) {
