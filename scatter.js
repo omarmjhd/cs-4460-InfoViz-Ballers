@@ -350,4 +350,4 @@ function drawAllScatter(width, height, teamArray, yearArray) {
 
 }
 
-drawAllScatter(250, 150, allTeams, allYears);
+drawAllScatter(200, 150, allTeams, allYears);
