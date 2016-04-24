@@ -48,6 +48,10 @@ h2 {
 
 .scatterplot {
   float: left;
+  width: 100%;
+  height: 630px;
+  background-color: white;
+  border-radius: 25px;
 }
 
 .team-information {
@@ -163,12 +167,4 @@ svg {
   background-color: white;
   border-radius: 25px;
   margin-bottom: 30px;
-}
-
-
-.test {
-  width: 100%;
-  height: 630px;
-  background-color: white;
-  border-radius: 25px;
 }
