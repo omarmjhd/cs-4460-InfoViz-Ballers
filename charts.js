@@ -6,6 +6,7 @@ function parallel(teamArray, yearArray) {
     var x = d3.scale.ordinal().rangePoints([0, width], 1),
         y = {},
         dragging = {};
+	var forScatter;
 
     var color = d3.scale.ordinal()
         .domain(['ATL', 'BOS', 'BRK', 'CHI', 'CLE', 'DAL', 'DEN', 'GSW', 'HOU', 'IND', 'LAC', 'LAL', 'MEM', 'MIA', 'OKC',
@@ -151,19 +152,26 @@ function parallel(teamArray, yearArray) {
         //currently teamsBrush needs to be emptied before next brushing is done
         teamsBrush = [];
         yearsBrush = [];
+		forScatter = [];
+		for (var x = 0; x < actives.length; x++) {
+			forScatter.push([]);
+		}
         foreground.style("display", function(d) {
             return actives.every(
                 function(p, i) {
-
+					
                     if (extents[i][0] <= d[p] && d[p] <= extents[i][1]) {
+						forScatter[i].push(d["Team"] + "," + d["Year"]);
                         teamsBrush.push(d["Team"]);
                         yearsBrush.push(d["Year"]);
+						
                     }
                     return extents[i][0] <= d[p] && d[p] <= extents[i][1];
 
                 }) ? null : "none";
         });
-
+		
+		//console.log(forScatter);
         //console.log("Teams");
         //console.log(teams);
         //console.log("Years");
@@ -174,12 +182,76 @@ function parallel(teamArray, yearArray) {
     }
 
     function brushend() {
-
-        console.log(teamsBrush);
-        console.log(yearsBrush);
-        d3.select(".scatterplot").selectAll("svg").remove();
-        drawAllScatter(200, 150, teamsBrush, yearsBrush);
+		if (forScatter.length == 0) {
+			//no filter
+		} else if (forScatter.length == 1) {
+			var teamsAndYears = split(forScatter[0]);
+			d3.selectAll(".dot")
+			.transition()
+			.duration(1000)
+			.attr('opacity', function(d) {
+				for (var i = 0; i < forScatter[0].length; i++) {
+					if (teamsAndYears[0][i] == d["Team"] && teamsAndYears[1][i] == d["Year"]) {
+						return 1;
+					}
+				}
+				return 0;
+				});	
+		} else if (forScatter.length < 0) {
+			//please god no
+		} else {
+			var toDraw = forScatter[0];
+			var updated = []
+			for (var i = 1; i < forScatter.length; i++) {
+				updated = []
+				var currentTest = forScatter[i];
+				for (var j = 0; j < toDraw.length; j++) {
+					for (var k = 0; k < forScatter[i].length; k++) {
+						if (toDraw[j] == currentTest[k]) {
+							updated.push(toDraw[j]);
+						}
+					}
+				}
+				toDraw = updated;
+				console.log(toDraw);
+			}
+			console.log(toDraw);
+			var teamsAndYears = split(toDraw);
+			d3.selectAll(".dot")
+			.transition()
+			.duration(1000)
+			.attr('opacity', function(d) {
+				for (var i = 0; i < toDraw.length; i++) {
+					if (teamsAndYears[0][i] == d["Team"] && teamsAndYears[1][i] == d["Year"]) {
+						return 1;
+					}
+				}
+				return 0;
+				});						
+		}
     }
+	
+	//For || coords filtering - splits TEAM, YEAR into two arrays [TEAM] and [YEAR]
+	function split(array) {
+		var teams = [];
+		var years = [];
+		
+		for (var i = 0; i < array.length; i++) {
+			curr = "";
+			for (var j = 0; j < array[i].length; j++) {
+				if(array[i][j] == ",") {
+					teams.push(curr);
+					curr = "";
+				} else {
+					curr = curr + array[i][j];
+				}
+			}
+			years.push(curr);
+		}
+		var output = [teams, years];
+		console.log(output);
+		return output;
+	}
 
     function filterFunction(teamArray, yearArray, team, year) {
 
@@ -206,7 +278,8 @@ function parallel(teamArray, yearArray) {
 
 }
 
-
+var brush_filter_teams = [[], [], [], []];
+var brush_filter_years = [];
 
 var allTeams = ['ATL', 'BOS', 'BRK', 'CHI', 'CLE', 'DAL', 'DEN', 'GSW', 'HOU', 'IND', 'LAC', 'LAL', 'MEM', 'MIA',
     'OKC', 'ORL', 'PHO', 'POR', 'SAS', 'TOR'];
@@ -229,6 +302,8 @@ var missingSA = ['ATL', 'BOS', 'BRK', 'CHI', 'CLE', 'DAL', 'DEN', 'GSW', 'HOU', 
     'OKC', 'ORL', 'PHO', 'POR', 'TOR'];
 	
 var hold_filter = ["", "", false];
+
+var RADIUS = 4;
 
 function drawScatter(x, y, location, width, height, teamArray, yearArray) {
 	
@@ -343,7 +418,7 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
             .enter().append("circle")
             .filter(function(d) { return filterFunction(teamArray, yearArray, d["Team"], d["Year"]); })
             .attr("class", "dot")
-            .attr("r", 5)
+            .attr("r", RADIUS)
             .attr("cx", xMap)
             .attr("cy", yMap)
             .style("fill", function(d) { return color(d["Team"]); })
@@ -351,6 +426,20 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
 				hold_filter[0] = d["Year"]
 				hold_filter[1] = d["Team"]
 				hold_filter[2] = false;
+				d3.select("#team-year-name")
+                    .html("No Team Selected");
+
+                d3.select("#pr")
+                    .html("0");
+
+                d3.select("#efg")
+                    .html("0");
+
+                d3.select("#to")
+                    .html("0");
+
+                d3.select("#ast")
+                    .html("0");
 				d3.select(".foreground").selectAll("path").transition()
 					.duration(1000)
 					.attr("stroke-opacity", function(e) {
@@ -376,9 +465,9 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
                     .attr("r", function(e) {
 
                         if (d["Year"] == e["Year"] && d["Team"] == e["Team"]) {
-                            return 10;
+                            return 2 * RADIUS;
                         } else {
-                            return 5;
+                            return RADIUS;
                         }
                     });
 
@@ -396,9 +485,11 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
                 // TODO: hide the tooltip
                 tooltip.style("opacity", 0);
 
-                d3.selectAll(".dot").transition()
-                    .duration(500)
-                    .attr("r", 5);
+				if(!(hold_filter[2])) {
+					d3.selectAll(".dot").transition()
+						.duration(500)
+						.attr("r", RADIUS);
+				}
 
 
             })
@@ -426,9 +517,9 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
                     .attr("r", function(e) {
 
                         if (d["Year"] == e["Year"] && d["Team"] == e["Team"]) {
-                            return 10;
+                            return 2 * RADIUS;
                         } else {
-                            return 5;
+                            return RADIUS;
                         }
                     });
             });
