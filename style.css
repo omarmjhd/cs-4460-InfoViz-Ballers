@@ -35,7 +35,18 @@ h2 {
   stroke: none;
 }
 
-.tooltip {
+.tooltipScatter {
+  background: #fff;
+  color: #202020;
+  border-radius: 5px;
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+  text-align: left;
+  opacity: .25;
+}
+
+.tooltipParallel {
   background: #fff;
   color: #202020;
   border-radius: 5px;

@@ -28,6 +28,12 @@ function parallel(teamArray, yearArray) {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    var tooltipParallel = d3.select("body").append("div")
+        .attr("class", "tooltipParallel")
+        .style("background-color", "black")
+        .style("color", "white")
+        .style("opacity", 0);
+
 
     //console.log("SVG Parallel" + svg);
 
@@ -59,7 +65,58 @@ function parallel(teamArray, yearArray) {
             .filter(function(d) {
                 return filterFunction(teamArray, yearArray, d["Team"], d["Year"]); }) //need to create an array that has strings of teams based on user dropdown selection
             .attr("d", path)
-            .attr('stroke', function(d) { return color(d["Team"]); });
+            .attr('stroke', function(d) { return color(d["Team"]); })
+            .on("mouseover", function(d) {
+
+                // TODO: show the tool tip
+                tooltipParallel
+                    .transition()
+                    .duration(1000)
+                    .style("opacity", 1);
+
+
+                // TODO: fill to the tool tip with the appropriate data
+                tooltipParallel.html(d["Year"] + " " + teamConversion(d["Team"]))
+                    .style("left", d3.event.pageX + 5 + "px")
+                    .style("top", d3.event.pageY + 5 + "px");
+
+                /*// TODO: expand all nodes with the same team
+                d3.selectAll(".dot").transition()
+                    .duration(500)
+                    .attr("r", function(e) {
+
+                        if (d["Year"] == e["Year"] && d["Team"] == e["Team"]) {
+                            return 2 * RADIUS;
+                        } else {
+                            return RADIUS;
+                        }
+                    });*/
+
+            })
+            .on("mouseout", function(d) {
+
+                /*if (!(hold_filter[2])) {
+                    d3.select(".foreground").selectAll("path")
+                        .attr('stroke-opacity', 0)
+                        .attr('stroke', function(d) { return color(d["Team"]); })
+                        .transition()
+                        .duration(1000)
+                        .attr('stroke-opacity', 1);
+                }*/
+
+                // TODO: hide the tooltipScatter
+                tooltipParallel.transition()
+                    .duration(1000)
+                    .style("opacity", 0);
+
+                /*if(!(hold_filter[2])) {
+                    d3.selectAll(".dot").transition()
+                        .duration(500)
+                        .attr("r", RADIUS);
+                }*/
+
+
+            });
 
         // Add a group element for each dimension.
         var g = svg.selectAll(".dimension")
@@ -182,6 +239,7 @@ function parallel(teamArray, yearArray) {
     }
 
     function brushend() {
+
 		if (forScatter.length == 0) {
 			//no filter
 		} else if (forScatter.length == 1) {
@@ -342,9 +400,9 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-    // add the tooltip area to the webpage
-    var tooltip = d3.select("body").append("div")
-        .attr("class", "tooltip")
+    // add the tooltipScatter area to the webpage
+    var tooltipScatter = d3.select("body").append("div")
+        .attr("class", "tooltipScatter")
         .style("background-color", "black")
         .style("color", "white")
         .style("opacity", 0);
@@ -451,11 +509,11 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
                     });
 					
                 // TODO: show the tool tip
-                tooltip.style("opacity", 1);
+                tooltipScatter.style("opacity", 1);
 				
 
                 // TODO: fill to the tool tip with the appropriate data
-                tooltip.html(d["Year"] + " " + teamConversion(d["Team"]))
+                tooltipScatter.html(d["Year"] + " " + teamConversion(d["Team"]))
                     .style("left", d3.event.pageX + 5 + "px")
                     .style("top", d3.event.pageY + 5 + "px");
 
@@ -482,8 +540,8 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
 						.duration(1000)
 						.attr('stroke-opacity', 1);
 				}
-                // TODO: hide the tooltip
-                tooltip.style("opacity", 0);
+                // TODO: hide the tooltipScatter
+                tooltipScatter.style("opacity", 0);
 
 				if(!(hold_filter[2])) {
 					d3.selectAll(".dot").transition()
