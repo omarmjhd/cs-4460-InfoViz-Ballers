@@ -104,7 +104,7 @@ function parallel(teamArray, yearArray) {
         g.append("g")
             .attr("class", "brush")
             .each(function(d) {
-                d3.select(this).call(y[d].brush = d3.svg.brush().y(y[d]).on("brushstart", brushstart).on("brush", brush));
+                d3.select(this).call(y[d].brush = d3.svg.brush().y(y[d]).on("brushstart", brushstart).on("brush", brush).on("brushend", brushend));
             })
             .selectAll("rect")
             .attr("x", -8)
@@ -136,7 +136,6 @@ function parallel(teamArray, yearArray) {
 
 // Handles a brush event, toggling the display of foreground lines.
     function brush() {
-        console.log("BRUSHING");
         var actives = dimensions.filter(function(p) { return !y[p].brush.empty(); });
         //console.log("actives");
         //console.log(actives);
@@ -149,37 +148,37 @@ function parallel(teamArray, yearArray) {
         // all the data to get the correct teams and years
 
         //condition ? value-if-true : value-if-false
-
-        var teams = [];
-        var years = [];
+        //currently teamsBrush needs to be emptied before next brushing is done
+        teamsBrush = [];
+        yearsBrush = [];
         foreground.style("display", function(d) {
             return actives.every(
                 function(p, i) {
 
                     if (extents[i][0] <= d[p] && d[p] <= extents[i][1]) {
-                        teams.push(d["Team"]);
-                        years.push(d["Years"]);
+                        teamsBrush.push(d["Team"]);
+                        yearsBrush.push(d["Year"]);
                     }
                     return extents[i][0] <= d[p] && d[p] <= extents[i][1];
 
                 }) ? null : "none";
         });
 
-        console.log("Teams");
-        console.log(teams);
-        console.log("Years");
-        console.log(years);
+        //console.log("Teams");
+        //console.log(teams);
+        //console.log("Years");
+        //console.log(years);
 
-        //this is where filter function needs to be called, actives and extents are confirmed once theyre down here
-        console.log("actives");
-        console.log(actives);
-        console.log("extents");
-        console.log(extents);
+        //haves teams and years, now need to place the redraw functions somewhere they'll only be called once
+        //console.log("BRUSHING END");
+    }
 
-        d3.csv("Results.csv", function(error, results) {
+    function brushend() {
 
-            //console.log(results);
-        })
+        console.log(teamsBrush);
+        console.log(yearsBrush);
+        d3.select(".scatterplot").selectAll("svg").remove();
+        drawAllScatter(200, 150, teamsBrush, yearsBrush);
     }
 
     function filterFunction(teamArray, yearArray, team, year) {
