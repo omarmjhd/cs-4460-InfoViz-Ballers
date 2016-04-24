@@ -228,9 +228,11 @@ var allYears = ['2015', '2014', '2013', '2012', '2011', '2010'];
 
 var missingSA = ['ATL', 'BOS', 'BRK', 'CHI', 'CLE', 'DAL', 'DEN', 'GSW', 'HOU', 'IND', 'LAC', 'LAL', 'MEM', 'MIA',
     'OKC', 'ORL', 'PHO', 'POR', 'TOR'];
+	
+var hold_filter = ["", "", false];
 
 function drawScatter(x, y, location, width, height, teamArray, yearArray) {
-
+	
     var margin = {top: 10, right: 35, bottom: 30, left: 35};
     width = width - margin.left - margin.right;
     height = height - margin.top - margin.bottom;
@@ -347,9 +349,22 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
             .attr("cy", yMap)
             .style("fill", function(d) { return color(d["Team"]); })
             .on("mouseover", function(d) {
-
+				hold_filter[0] = d["Year"]
+				hold_filter[1] = d["Team"]
+				hold_filter[2] = false;
+				d3.select(".foreground").selectAll("path").transition()
+					.duration(1000)
+					.attr("stroke-opacity", function(e) {
+                        if (d["Year"] == e["Year"] && d["Team"] == e["Team"]) {
+							return 1
+                        } else {
+                            return 0;
+                        }
+                    });
+					
                 // TODO: show the tool tip
                 tooltip.style("opacity", 1);
+				
 
                 // TODO: fill to the tool tip with the appropriate data
                 tooltip.html(d["Year"] + " " + teamConversion(d["Team"]))
@@ -370,6 +385,15 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
 
             })
             .on("mouseout", function(d) {
+			
+				if (!(hold_filter[2])) {
+					d3.select(".foreground").selectAll("path")
+						.attr('stroke-opacity', 0)
+						.attr('stroke', function(d) { return color(d["Team"]); })
+						.transition()
+						.duration(1000)
+						.attr('stroke-opacity', 1);
+				}
                 // TODO: hide the tooltip
                 tooltip.style("opacity", 0);
 
@@ -380,7 +404,7 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
 
             })
             .on("click", function(d) {
-
+				hold_filter[2] = true;
                 // TODO: update text in our custom team label
                 d3.select("#team-year-name")
                     .html(d["Year"] + " " + teamConversion(d["Team"]));
