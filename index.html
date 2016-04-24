@@ -30,50 +30,61 @@
     <div class="parallel-coordinate" style="margin-left: -80px;"></div>
 
     <!-- scatter plot matrix -->
-    <div class="col-md-3">
-        <p>PR</p>
-    </div>
-    <div class="col-md-3 EFG-PR">
-    </div>
-    <div class="col-md-3 AST-PR">
-    </div>
-    <div class="col-md-3 TO-PR">
-    </div>
+    <div class="test">
+        <div class="col-md-3" style="margin-top: 15px;">
+            <p>PR</p>
+        </div>
+        <div class="col-md-3 EFG-PR" style="margin-top: 15px;">
+        </div>
+        <div class="col-md-3 AST-PR" style="margin-top: 15px;">
+        </div>
+        <div class="col-md-3 TO-PR" style="margin-top: 15px;">
+        </div>
 
-    <div class="col-md-3 PR-EFG">
-    </div>
-    <div class="col-md-3">
-        <p>EFG</p>
-    </div>
-    <div class="col-md-3 AST-EFG">
-    </div>
-    <div class="col-md-3 TO-EFG">
-    </div>
+        <div class="col-md-3 PR-EFG">
+        </div>
+        <div class="col-md-3">
+            <p>EFG</p>
+        </div>
+        <div class="col-md-3 AST-EFG">
+        </div>
+        <div class="col-md-3 TO-EFG">
+        </div>
 
-    <div class="col-md-3 PR-AST">
-    </div>
-    <div class="col-md-3 EFG-AST">
-    </div>
-    <div class="col-md-3 ">
-        <p>AST</p>
-    </div>
-    <div class="col-md-3 TO-AST">
-    </div>
+        <div class="col-md-3 PR-AST">
+        </div>
+        <div class="col-md-3 EFG-AST">
+        </div>
+        <div class="col-md-3 ">
+            <p>AST</p>
+        </div>
+        <div class="col-md-3 TO-AST">
+        </div>
 
-    <div class="col-md-3 PR-TO">
-    </div>
-    <div class="col-md-3 EFG-TO">
-    </div>
-    <div class="col-md-3 AST-TO">
-    </div>
-    <div class="col-md-3">
-        <p>TO</p>
+        <div class="col-md-3 PR-TO">
+        </div>
+        <div class="col-md-3 EFG-TO">
+        </div>
+        <div class="col-md-3 AST-TO">
+        </div>
+        <div class="col-md-3">
+            <p>TO</p>
+        </div>
     </div>
 </div>
 
 <div class="col-lg-4">
 
         <div class="row menu">
+
+            <h2 id="team-year-name">2015 Golden State Warriors</h2>
+            <br>
+            <table>
+                <tr><td>Playoff Rank</td><td id="pr">0</td></tr>
+                <tr><td>Effective Field Goal Percentage</td><td id="efg">0</td></tr>
+                <tr><td>Turnover Percentage</td><td id="to">0</td></tr>
+                <tr><td>Assists</td><td id="ast">0</td></tr>
+            </table>
 
             <div id="teamList" class="dropdown-check-list" tabindex="100">
                 <span class="anchor">Select Teams</span>
@@ -114,17 +125,6 @@
 
             <div id="button"></div>
 
-
-            <h2>Team Information</h2>
-                <h2 id="team-year-name">0000 Team Name</h2>
-                <br>
-                <table>
-                    <tr><td>Playoff Rank</td><td id="pr">0</td></tr>
-                    <tr><td>Effective Field Goal Percentage</td><td id="efg">0</td></tr>
-                    <tr><td>Turnover Percentage</td><td id="to">0</td></tr>
-                    <tr><td>Assists</td><td id="ast">0</td></tr>
-                </table>
-
             <img src="finals.png" style="width: 367px; height: 190px;" >
         </div>
 </div>
@@ -135,10 +135,11 @@
         <!-- D3 library -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
         <!-- Parallel Coordinates Script -->
-        <script src="parallel.js"></script>
+        <!--<script src="parallel.js"></script>
         <!-- Scatter Plot Script -->
-        <script src="scatter.js"></script>
+        <!--<script src="scatter.js"></script>-->
         <script src="button.js"></script>
+        <script src="charts.js"></script>
         <script src="list.js"></script>
 
     </body>

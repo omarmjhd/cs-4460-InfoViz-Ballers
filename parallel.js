@@ -134,8 +134,13 @@ function parallel(teamArray, yearArray) {
 
 // Handles a brush event, toggling the display of foreground lines.
     function brush() {
-        var actives = dimensions.filter(function(p) { return !y[p].brush.empty(); }),
-            extents = actives.map(function(p) { return y[p].brush.extent(); });
+        console.log("BRUSHING");
+        var actives = dimensions.filter(function(p) { return !y[p].brush.empty(); });
+        console.log("actives");
+        console.log(actives);
+        var extents = actives.map(function(p) { return y[p].brush.extent(); });
+        console.log("extents");
+        console.log(extents);
 
         foreground.style("display", function(d) {
             return actives.every(function(p, i) {
