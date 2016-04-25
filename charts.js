@@ -484,6 +484,7 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
             .attr("cx", xMap)
             .attr("cy", yMap)
             .style("fill", function(d) { return color(d["Team"]); })
+
             .on("mouseover", function(d) {
 				hold_filter[0] = d["Year"]
 				hold_filter[1] = d["Team"]
