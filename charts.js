@@ -144,6 +144,37 @@ function parallel(teamArray, yearArray) {
                 }*/
 
 
+            })
+            .on("click", function(d) {
+
+                d3.selectAll(".dot").transition()
+                    .duration(500)
+                    .attr("r", function(e) {
+
+                        if (d["Year"] == e["Year"] && d["Team"] == e["Team"]) {
+                            return 2 * RADIUS;
+                        } else {
+                            return RADIUS;
+                        }
+                    });
+
+                d3.select("#team-year-name")
+                    .html(d["Year"] + " " + teamConversion(d["Team"]));
+
+                d3.select("#pr")
+                    .html(playoffConversion(d["Playoff Rank"]));
+
+                d3.select("#efg")
+                    .html(efgConversion(d["EFG"]));
+
+                d3.select("#to")
+                    .html(d["Turnover Percentage"] + "%");
+
+                d3.select("#ast")
+                    .html(d["Assists"]);
+
+
+
             });
 
         // Add a group element for each dimension.
@@ -231,7 +262,7 @@ function parallel(teamArray, yearArray) {
         //console.log(extents);
         // extents gives range drawn by brush, actives shows which chart is being filtered on
         //need a filter function based on extents
-        //both drawScatter and parallel take a team and year array, so a filtering function would need to filter 
+        //both drawScatter and parallel take a team and year array, so a filtering function would need to filter
         // all the data to get the correct teams and years
 
         //condition ? value-if-true : value-if-false
@@ -245,19 +276,16 @@ function parallel(teamArray, yearArray) {
         foreground.style("display", function(d) {
             return actives.every(
                 function(p, i) {
-					
                     if (extents[i][0] <= d[p] && d[p] <= extents[i][1]) {
 						console.log(extents[i][0]);
 						forScatter[i].push(d["Team"] + "," + d["Year"]);
                         teamsBrush.push(d["Team"]);
                         yearsBrush.push(d["Year"]);
-						
                     }
                     return extents[i][0] <= d[p] && d[p] <= extents[i][1];
 
                 }) ? null : "none";
         });
-		
 		//console.log(forScatter);
         //console.log("Teams");
         //console.log(teams);
@@ -287,7 +315,7 @@ function parallel(teamArray, yearArray) {
 					}
 				}
 				return 0;
-				});	
+				});
 		} else if (forScatter.length < 0) {
 			//please god no
 		} else {
@@ -318,15 +346,15 @@ function parallel(teamArray, yearArray) {
 					}
 				}
 				return 0;
-				});						
+				});
 		}
     }
-	
+
 	//For || coords filtering - splits TEAM, YEAR into two arrays [TEAM] and [YEAR]
 	function split(array) {
 		var teams = [];
 		var years = [];
-		
+
 		for (var i = 0; i < array.length; i++) {
 			curr = "";
 			for (var j = 0; j < array[i].length; j++) {
@@ -390,13 +418,13 @@ var allYears = ['2015', '2014', '2013', '2012', '2011', '2010'];
 
 var missingSA = ['ATL', 'BOS', 'BRK', 'CHI', 'CLE', 'DAL', 'DEN', 'GSW', 'HOU', 'IND', 'LAC', 'LAL', 'MEM', 'MIA',
     'OKC', 'ORL', 'PHO', 'POR', 'TOR'];
-	
+
 var hold_filter = ["", "", false];
 
 var RADIUS = 4;
 
 function drawScatter(x, y, location, width, height, teamArray, yearArray) {
-	
+
     var margin = {top: 10, right: 35, bottom: 30, left: 35};
     width = width - margin.left - margin.right;
     height = height - margin.top - margin.bottom;
@@ -539,12 +567,12 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
                             return 0;
                         }
                     });
-					
+
                 // TODO: show the tool tip
                 tooltipScatter.transition()
                     .duration(500)
                     .style("opacity", 1);;
-				
+
 
                 // TODO: fill to the tool tip with the appropriate data
                 tooltipScatter.html(d["Year"] + " " + teamConversion(d["Team"]))
@@ -565,7 +593,6 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
 
             })
             .on("mouseout", function(d) {
-			
 				if (!(hold_filter[2])) {
 					d3.select(".foreground").selectAll("path")
 						.attr('stroke-opacity', 0)
