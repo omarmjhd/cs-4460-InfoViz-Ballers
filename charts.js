@@ -81,6 +81,17 @@ function parallel(teamArray, yearArray) {
                     .duration(500)
                     .attr('stroke-width', 7);
 
+                d3.selectAll(".dot").transition()
+                    .duration(500)
+                    .attr("r", function(e) {
+
+                        if (d["Year"] == e["Year"] && d["Team"] == e["Team"]) {
+                            return 2 * RADIUS;
+                        } else {
+                            return RADIUS;
+                        }
+                    });
+
 
 
                 // TODO: fill to the tool tip with the appropriate data
@@ -121,6 +132,10 @@ function parallel(teamArray, yearArray) {
                     .transition()
                     .duration(500)
                     .attr('stroke-width', 2);
+
+                d3.selectAll(".dot").transition()
+                    .duration(500)
+                    .attr("r", RADIUS);
 
                 /*if(!(hold_filter[2])) {
                     d3.selectAll(".dot").transition()
