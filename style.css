@@ -24,6 +24,16 @@ h2 {
   margin-bottom: 20px;
 }
 
+ul {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+
+li {
+  text-align: left;
+}
+
 .axis path,
 .axis line {
   fill: none;
@@ -72,6 +82,12 @@ h2 {
   height: 225px;
   background: #404040;
   color: #fff;
+}
+
+.title {
+  font-size: 20px;
+  padding: 35px;
+  margin: auto;
 }
 
 .wrap {
@@ -128,16 +144,21 @@ svg {
   -webkit-outline-radius: 10px;
 }
 
+
+
 .dropdown-check-list {
   display: inline-block;
 }
+
 .dropdown-check-list .anchor {
   position: relative;
   cursor: pointer;
   display: inline-block;
   padding: 5px 50px 5px 10px;
   border: 1px solid #ccc;
+
 }
+
 .dropdown-check-list .anchor:after {
   position: absolute;
   content: "";
@@ -152,10 +173,12 @@ svg {
   -webkit-transform: rotate(-135deg);
   transform: rotate(-135deg);
 }
+
 .dropdown-check-list .anchor:active:after {
   right: 8px;
   top: 21%;
 }
+
 .dropdown-check-list ul.items {
   padding: 2px;
   display: none;
@@ -163,6 +186,7 @@ svg {
   border: 1px solid #ccc;
   border-top: none;
 }
+
 .dropdown-check-list ul.items li {
   list-style: none;
 }

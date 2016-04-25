@@ -71,7 +71,7 @@ function parallel(teamArray, yearArray) {
                 // TODO: show the tool tip
                 tooltipParallel
                     .transition()
-                    .duration(1000)
+                    .duration(500)
                     .style("opacity", 1);
 
 
@@ -106,7 +106,7 @@ function parallel(teamArray, yearArray) {
 
                 // TODO: hide the tooltipScatter
                 tooltipParallel.transition()
-                    .duration(1000)
+                    .duration(500)
                     .style("opacity", 0);
 
                 /*if(!(hold_filter[2])) {
@@ -509,7 +509,9 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
                     });
 					
                 // TODO: show the tool tip
-                tooltipScatter.style("opacity", 1);
+                tooltipScatter.transition()
+                    .duration(500)
+                    .style("opacity", 1);;
 				
 
                 // TODO: fill to the tool tip with the appropriate data
@@ -541,7 +543,9 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
 						.attr('stroke-opacity', 1);
 				}
                 // TODO: hide the tooltipScatter
-                tooltipScatter.style("opacity", 0);
+                tooltipScatter.transition()
+                    .duration(500)
+                    .style("opacity", 0);
 
 				if(!(hold_filter[2])) {
 					d3.selectAll(".dot").transition()
