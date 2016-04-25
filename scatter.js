@@ -119,7 +119,7 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
             .enter().append("circle")
             .filter(function(d) { return filterFunction(teamArray, yearArray, d["Team"], d["Year"]); })
             .attr("class", "dot")
-            .attr("r", 5)
+            .attr("r", 4)
             .attr("cx", xMap)
             .attr("cy", yMap)
             .style("fill", function(d) { return color(d["Team"]); })
@@ -135,13 +135,20 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
 
                 // TODO: expand all nodes with the same team
                 d3.selectAll(".dot").transition()
-                    .duration(500)
+                    .duration(1000)
                     .attr("r", function(e) {
 
                         if (d["Year"] == e["Year"] && d["Team"] == e["Team"]) {
                             return 10;
                         } else {
-                            return 5;
+                            return 4;
+                        }
+                    })
+					.attr('fill-opacity', function(e) {
+						if (d["Year"] == e["Year"] && d["Team"] == e["Team"]) {
+                            return 1;
+                        } else {
+                            return 0.25;
                         }
                     });
 
@@ -151,8 +158,9 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
                 tooltip.style("opacity", 0);
 
                 d3.selectAll(".dot").transition()
-                    .duration(500)
-                    .attr("r", 5);
+                    .duration(1000)
+                    .attr("r", 4)
+					.attr('fill-opacity', 1);
 
 
             })

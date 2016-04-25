@@ -189,6 +189,7 @@ function parallel(teamArray, yearArray) {
     }
 
     function brushstart() {
+		brush();
         d3.event.sourceEvent.stopPropagation();
     }
 
@@ -218,6 +219,7 @@ function parallel(teamArray, yearArray) {
                 function(p, i) {
 					
                     if (extents[i][0] <= d[p] && d[p] <= extents[i][1]) {
+						console.log(extents[i][0]);
 						forScatter[i].push(d["Team"] + "," + d["Year"]);
                         teamsBrush.push(d["Team"]);
                         yearsBrush.push(d["Year"]);
@@ -241,7 +243,10 @@ function parallel(teamArray, yearArray) {
     function brushend() {
 
 		if (forScatter.length == 0) {
-			//no filter
+			d3.selectAll(".dot")
+			.transition()
+			.duration(1000)
+			.attr('opacity', 1);
 		} else if (forScatter.length == 1) {
 			var teamsAndYears = split(forScatter[0]);
 			d3.selectAll(".dot")
@@ -307,7 +312,6 @@ function parallel(teamArray, yearArray) {
 			years.push(curr);
 		}
 		var output = [teams, years];
-		console.log(output);
 		return output;
 	}
 
