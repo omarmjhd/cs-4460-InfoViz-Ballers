@@ -54,7 +54,8 @@ function parallel(teamArray, yearArray) {
             .selectAll("path")
             .data(results)
             .enter().append("path")
-            .attr("d", path);
+            .attr("d", path)
+            .attr('stroke-width', 2);
 
         // Add colored foreground lines for focus.
         foreground = svg.append("g")
@@ -66,6 +67,7 @@ function parallel(teamArray, yearArray) {
                 return filterFunction(teamArray, yearArray, d["Team"], d["Year"]); }) //need to create an array that has strings of teams based on user dropdown selection
             .attr("d", path)
             .attr('stroke', function(d) { return color(d["Team"]); })
+            .attr('stroke-width', 2)
             .on("mouseover", function(d) {
 
                 // TODO: show the tool tip
@@ -73,6 +75,12 @@ function parallel(teamArray, yearArray) {
                     .transition()
                     .duration(500)
                     .style("opacity", 1);
+
+                d3.select(this)
+                    .transition()
+                    .duration(500)
+                    .attr('stroke-width', 7);
+
 
 
                 // TODO: fill to the tool tip with the appropriate data
@@ -108,6 +116,11 @@ function parallel(teamArray, yearArray) {
                 tooltipParallel.transition()
                     .duration(500)
                     .style("opacity", 0);
+
+                d3.select(this)
+                    .transition()
+                    .duration(500)
+                    .attr('stroke-width', 2);
 
                 /*if(!(hold_filter[2])) {
                     d3.selectAll(".dot").transition()
@@ -484,7 +497,6 @@ function drawScatter(x, y, location, width, height, teamArray, yearArray) {
             .attr("cx", xMap)
             .attr("cy", yMap)
             .style("fill", function(d) { return color(d["Team"]); })
-
             .on("mouseover", function(d) {
 				hold_filter[0] = d["Year"]
 				hold_filter[1] = d["Team"]
